@@ -17,7 +17,7 @@ jobs:
       - name: connecting to aws
         uses: JimCronqvist/action-ssh@master
         with:
-          hosts: 'ubuntu@172.31.16.7'
+          hosts: 'ubuntu@54.175.43.151'
           privatekey: ${{ secrets.EC2_staging  }}
           command: |
             export NVM_DIR=/home/ubuntu/.nvm
