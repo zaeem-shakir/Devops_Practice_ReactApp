@@ -10,24 +10,24 @@ on:
 
 jobs:
   first-job:
-    run-on: ubuntu-latest
-      steps:
-        - name: checking out the repository
-          uses: actions/checkout@v4
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking out the repository
+        uses: actions/checkout@v4
 
-        - name: connecting to aws
-          uses: JimCronqvist/action-ssh@master
-          with:
-            hosts: 'ubuntu@172.31.16.7'
-            privatekey: ${{ secrets.EC2_staging  }}
-            command: |
-              export NVM_DIR=/home/ubuntu/.nvm
-              source /home/ubuntu/.nvm/nvm.sh
-              cd /home/ubuntu/assignment2/
-              git pull origin main
-              cd App/
-              killall node
-              npm run dev
+      - name: connecting to aws
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: 'ubuntu@172.31.16.7'
+          privatekey: ${{ secrets.EC2_staging  }}
+        command: |
+            export NVM_DIR=/home/ubuntu/.nvm
+            source /home/ubuntu/.nvm/nvm.sh
+            cd /home/ubuntu/assignment2/
+            git pull origin main
+            cd App/
+            killall node
+            npm run dev
 
 
 
