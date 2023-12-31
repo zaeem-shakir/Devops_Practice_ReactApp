@@ -14,7 +14,6 @@ jobs:
     steps:
       - name: checking out the repository
         uses: actions/checkout@v4
-
       - name: connecting to aws
         uses: JimCronqvist/action-ssh@master
         with:
@@ -28,10 +27,6 @@ jobs:
             cd App/
             killall node
             npm run dev
-
-
-
-
         - name: notify on success
           if: success()
           run: echo "suceeded"
