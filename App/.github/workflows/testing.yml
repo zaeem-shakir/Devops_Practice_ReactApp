@@ -1,0 +1,34 @@
+#workflow_testing.yml
+name: "testing the latest pull request for validation"
+run-name: "execute by ${{ github.actor }} using ${{ github.event_name }} on ${{ github.repository }} repository"
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:    
+  
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking out
+        uses: actions/checkout@v4
+
+      - name: Running tests on aws testing server
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: 'ubuntu@172.31.26.250'
+          privatekey: ${{secrets.EC2_testing_staging_SERVER_SSH_ACCESS}}
+          command: |
+            export NVM_DIR=/home/ubuntu/.nvm
+            source /home/ubuntu/.nvm/nvm.sh
+            cd /home/ubuntu/assignment2/App/
+            git checkout fix
+            git pull origin fix
+            npm run build-react
+            npm run test-react
+            npm run dev
+
+      - name: Notify on success
+        run: echo "success"

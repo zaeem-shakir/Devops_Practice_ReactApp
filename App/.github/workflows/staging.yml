@@ -1,0 +1,40 @@
+name: "this is staging workflow"
+run-name: "this is run by ${{ github.actor }} on the event ${{ github.event_name }}"
+
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  first-job:
+    run-on: ubuntu-latest
+      steps:
+        - name: checking out the repository
+          uses: actions/checkout@v4
+
+        - name: connecting to aws
+          uses: JimCronqvist/action-ssh@master
+          with:
+            hosts: 'ubuntu@172.31.16.7'
+            privatekey: ${{ secrets.EC2_staging  }}
+            command: |
+              export NVM_DIR=/home/ubuntu/.nvm
+              source /home/ubuntu/.nvm/nvm.sh
+              cd /home/ubuntu/assignment2/
+              git pull origin main
+              cd App/
+              killall node
+              npm run dev
+
+
+
+
+        - name: notify on success
+          if: success()
+          run: echo "suceeded"
+        - name: notify on fail                                                                                 if: success()                                                                                 - name: "notify on failure"
+          if: success()
+          run: echo "failed" 
