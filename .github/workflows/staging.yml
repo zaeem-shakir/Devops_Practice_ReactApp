@@ -29,7 +29,7 @@ jobs:
             npm run dev
       - name: notify on success
         if: success()
-        run: echo "suceeded"
+          run: echo "suceeded"
       - name: notify on fail                                                                                 if: success()                                                                                 - name: "notify on failure"
         if: success()
-        run: echo "failed" 
+          run: echo "failed" 
