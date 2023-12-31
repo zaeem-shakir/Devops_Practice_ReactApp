@@ -27,9 +27,9 @@ jobs:
             cd App/
             killall node
             npm run dev
-        - name: notify on success
-          if: success()
-          run: echo "suceeded"
-        - name: notify on fail                                                                                 if: success()                                                                                 - name: "notify on failure"
-          if: success()
-          run: echo "failed" 
+      - name: notify on success
+        if: success()
+        run: echo "suceeded"
+      - name: notify on fail                                                                                 if: success()                                                                                 - name: "notify on failure"
+        if: success()
+        run: echo "failed" 
