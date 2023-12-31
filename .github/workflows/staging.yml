@@ -19,7 +19,7 @@ jobs:
         with:
           hosts: 'ubuntu@172.31.16.7'
           privatekey: ${{ secrets.EC2_staging  }}
-        command: |
+          command: |
             export NVM_DIR=/home/ubuntu/.nvm
             source /home/ubuntu/.nvm/nvm.sh
             cd /home/ubuntu/assignment2/
@@ -27,9 +27,11 @@ jobs:
             cd App/
             killall node
             npm run dev
+      
       - name: notify on success
         if: success()
-          run: echo "suceeded"
-      - name: notify on fail                                                                                 if: success()                                                                                 - name: "notify on failure"
+        run: echo "suceeded"
+      
+      - name: notify on fail                  
         if: success()
-          run: echo "failed" 
+        run: echo "failed" 
